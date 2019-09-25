@@ -1,0 +1,37 @@
+# B"H
+
+alias getCluster='kubectl config current-context'
+alias getClusters='kubectl config get-contexts'
+
+alias setCurrentCluster='kubectl config use-context'
+
+export allSapeces='--all-namespaces'
+
+
+# Get 
+alias getPods='kubectl get pods'
+alias get='kubectl get'
+alias getConfig='kubectl get configmaps'
+alias getDeploy='kubectl get deployments'
+alias getSvc='kubectl get svc'
+alias getIng='kubectl get ing'
+
+# Get All Namespaces
+alias getAllPods='kubectl get pods --all-namespaces'
+alias getAll='kubectl get --all-namespaces'
+alias getAllConfig='kubectl get configmaps --all-namespaces'
+alias getAllDeploy='kubectl get deployments --all-namespaces'
+alias getAllSvc='kubectl get svc --all-namespaces'
+alias getAllIng='kubectl get ing --all-namespaces'
+
+
+# Describe
+alias describePod='kubectl describe pod'
+alias describeDeployment='kubectl describe deployments'
+alias describeSvc='kubectl describe svc'
+alias describe='kubectl describe'
+
+
+#
+alias getLogs='kubectl logs '
+alias kubeExec='kubectl exec -it '
