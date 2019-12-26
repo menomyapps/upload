@@ -1,9 +1,11 @@
 # B"H
 
-# ls
+# system
 alias ll='ls -la'
 alias lll='ls -la'
 alias l='ls -la'
+
+alias grep='grep --color=always'
 
 # docker 
 alias docExec='docker exec -it'
