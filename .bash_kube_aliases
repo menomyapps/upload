@@ -1,12 +1,24 @@
 # B"H
 
+source <(kubectl completion bash) # setup autocomplete for kubectl
+
+
 alias getCluster='kubectl config current-context'
 alias getClusters='kubectl config get-contexts'
 
 alias setCurrentCluster='kubectl config use-context'
 
-export allSapeces='--all-namespaces'
 
+# Namespaces
+export allSapeces='--all-namespaces'
+function setNamespace(){
+	namespace=$1
+	kubectl config set-context $(kubectl config current-context) --namespace=$namespace
+	#kubectl config view --minify | grep namespace # | awk '{print $1" "$2}'
+}
+
+# Not sure but there is some escaping before end of the line
+alias getCurrentNamespace='kubectl config view --minify | grep namespace | awk '\''{print $1" "$2}'\'''
 
 # Get 
 alias getPods='kubectl get pods'
@@ -16,6 +28,18 @@ alias getDeploy='kubectl get deployments'
 alias getSvc='kubectl get svc'
 alias getIng='kubectl get ing'
 
+
+# While pod status is not running get pods by grep search term.
+function getPodsStatus (){
+	searchTerm=$1
+	while [[ $(getAllPods | grep $searchTerm | awk '{print $4}') != "Running" ]]; 
+		do getAllPods | grep $searchTerm
+		sleep 2
+	done;
+
+	getAllPods | grep $searchTerm
+}
+
 # Get All Namespaces
 alias getAllPods='kubectl get pods --all-namespaces'
 alias getAll='kubectl get --all-namespaces'
@@ -24,6 +48,10 @@ alias getAllDeploy='kubectl get deployments --all-namespaces'
 alias getAllSvc='kubectl get svc --all-namespaces'
 alias getAllIng='kubectl get ing --all-namespaces'
 
+function getPodsByExpretion(){
+	grepExpretion=$1
+	kubectl get pods --all-namespaces | grep --color=always $grepExpretion
+}
 
 # Describe
 alias describePod='kubectl describe pod'
