@@ -2,5 +2,5 @@
 
 . ~/.bash_kube_aliases
 . ~/.bash_general_aliases
-3[33;1m\]\u@\h\[\033[00m\]:$ '
-PS1='\[\e]0;\u@\h: \w\a\]\n\[\033[01;34m\][13:17:13][You are Here] \[\033[0;36m\]\w/\[\033[00m\]\033[0;32m\]$(__git_ps1)\n${debian_chroot:+($debian_chroot)}\[\03
+
+PS1='\[\e]0;\u@\h: \w\a\]\n\[\033[01;34m\][13:17:13][You are Here] \[\033[0;36m\]\w/\[\033[00m\]\033[0;32m\]$(__git_ps1)\n${debian_chroot:+($debian_chroot)}\[\033[33;1m\]\u@\h\[\033[00m\]:$ '
