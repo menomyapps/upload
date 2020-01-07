@@ -8,6 +8,17 @@ alias getClusters='kubectl config get-contexts'
 
 alias setCurrentCluster='kubectl config use-context'
 
+alias switchName='kubectl config use-context {some_context}'
+
+
+function updateKubeConfig(){
+	wd=$(pwd)
+	echo $wd
+	cd /home/shmuelra/scripts/update.kubectl.token
+	node app.js
+	cd $wd
+}
+
 
 # Namespaces
 export allSapeces='--all-namespaces'
@@ -32,9 +43,15 @@ alias getIng='kubectl get ing'
 # While pod status is not running get pods by grep search term.
 function getPodsStatus (){
 	searchTerm=$1
-	while [[ $(getAllPods | grep $searchTerm | awk '{print $4}') != "Running" ]]; 
-		do getAllPods | grep $searchTerm
+	while [[ $(kubectl get pods --all-namespaces | grep $searchTerm | awk '{print $4}') != "Running" ]]; 
+		do 
+		kubectl get pods --all-namespaces | grep $searchTerm
 		sleep 2
+	done;
+
+	while [[ $(kubectl get pods --all-namespaces | grep $searchTerm | awk '{print $3}' | cut -d '/' -f1) != $(kubectl get pods --all-namespaces | grep $searchTerm | awk '{print $3}' | cut -d '/' -f2) ]];
+		do
+		kubectl get pods --all-namespaces | grep $searchTerm
 	done;
 
 	getAllPods | grep $searchTerm
@@ -48,9 +65,9 @@ alias getAllDeploy='kubectl get deployments --all-namespaces'
 alias getAllSvc='kubectl get svc --all-namespaces'
 alias getAllIng='kubectl get ing --all-namespaces'
 
-function getPodsByExpretion(){
-	grepExpretion=$1
-	kubectl get pods --all-namespaces | grep --color=always $grepExpretion
+function getPodsByExpression(){
+	grepExpression=$1
+	kubectl get pods --all-namespaces | grep --color=always $grepExpression
 }
 
 # Describe
